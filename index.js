@@ -13,9 +13,10 @@ const App = () => {
   const [rowData, setRowData] = useState([]);
 
   useEffect(() => {
+    console.log('fetch ')
     fetch('https://www.ag-grid.com/example-assets/row-data.json')
       .then(result => result.json())
-      .then(rowData => setRowData(rowData))
+      .then(rowData => {console.log(rowData) ; setRowData(rowData)})
   }, []);
 
 
