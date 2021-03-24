@@ -6,6 +6,7 @@ import "ag-grid-enterprise";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-material";
 
+// Main concepts: Properties, Events, Callbacks and APIs
 const App = () => {
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
@@ -37,33 +38,31 @@ const App = () => {
     gridApi.deselectAll()
   }
 
-  const gridOptions = {
-    rowData: rowData,
-    rowSelection: 'mutiple',
-    onGridReady: onGridReady,
-    groupSelectsChildren: true,
-    autoGroupColumnDef: {
-      headerName: "Model",
-      field: "model",
-      cellRenderer: 'agGroupCellRenderer',
-      cellRendererParams: {
-        checkbox: true
-      }
-    }
-  }
 
-  return (
+return (
 
-    <div className="ag-theme-material" style={{ height: 400, width: 600 }}>
-      <button onClick={showSelectedNodes}>Get selected rows</button>
-      <button onClick={clearButtonClick}>Clear Selection</button>
-      <AgGridReact gridOptions={gridOptions}>
-        <AgGridColumn field="make" sortable={true} checkboxSelection={true} rowGroup={true} />
-        <AgGridColumn field="model" filter={true} />
-        <AgGridColumn field="price" />
-      </AgGridReact>
-    </div >
-  );
+  <div className="ag-theme-material" style={{ height: 400, width: 600 }}>
+    <button onClick={showSelectedNodes}>Get selected rows</button>
+    <button onClick={clearButtonClick}>Clear Selection</button>
+
+
+
+    <AgGridReact onGridReady={onGridReady} rowData={rowData} rowSelection="multiple"
+      groupSelectsChildren={true}
+      autoGroupColumnDef={{
+        headerName: "Model",
+        field: "model",
+        cellRenderer: 'agGroupCellRenderer',
+        cellRendererParams: {
+          checkbox: true
+        }
+      }}>
+      <AgGridColumn field="make" sortable={true} checkboxSelection={true} rowGroup={true} />
+      <AgGridColumn field="model" filter={true} />
+      <AgGridColumn field="price" />
+    </AgGridReact>
+  </div >
+);
 };
 
 render(<App />, document.getElementById("root"));
