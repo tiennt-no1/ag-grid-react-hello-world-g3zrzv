@@ -16,7 +16,7 @@ const App = () => {
     console.log('fetch ')
     fetch('https://www.ag-grid.com/example-assets/row-data.json')
       .then(result => result.json())
-      .then(rowData => {console.log(rowData) ; setRowData(rowData)})
+      .then(rowData => { console.log(rowData); setRowData(rowData) })
   }, []);
 
 
@@ -28,21 +28,30 @@ const App = () => {
 
   const onButtonClick = e => {
     const selectedNodes = gridApi.getSelectedNodes()
-    const selectedData = selectedNodes.map( node => node.data )
-    const selectedDataStringPresentation = selectedData.map( node => `${node.make} ${node.model}`).join(', ')
+    const selectedData = selectedNodes.map(node => node.data)
+    const selectedDataStringPresentation = selectedData.map(node => `${node.make} ${node.model}`).join(', ')
     alert(`Selected nodes: ${selectedDataStringPresentation}`)
-}
+  }
 
   return (
-    
+
     <div className="ag-theme-material" style={{ height: 400, width: 600 }}>
       <button onClick={onButtonClick}>Get selected rows</button>
-      <AgGridReact onGridReady={onGridReady} rowData={rowData} rowSelection="multiple">
-        <AgGridColumn field="make" sortable={true}  checkboxSelection={ true } />
+      <AgGridReact onGridReady={onGridReady} rowData={rowData} rowSelection="multiple"
+        groupSelectsChildren={true}
+        autoGroupColumnDef={{
+          headerName: "Model",
+          field: "model",
+          cellRenderer: 'agGroupCellRenderer',
+          cellRendererParams: {
+            checkbox: true
+          }
+        }}>
+        <AgGridColumn field="make" sortable={true} checkboxSelection={true} rowGroup={true} />
         <AgGridColumn field="model" filter={true} />
         <AgGridColumn field="price" />
       </AgGridReact>
-    </div>
+    </div >
   );
 };
 
