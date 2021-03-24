@@ -26,17 +26,23 @@ const App = () => {
     setGridColumnApi(params.columnApi);
   }
 
-  const onButtonClick = e => {
+  const showSelectedNodes = e => {
     const selectedNodes = gridApi.getSelectedNodes()
     const selectedData = selectedNodes.map(node => node.data)
     const selectedDataStringPresentation = selectedData.map(node => `${node.make} ${node.model}`).join(', ')
     alert(`Selected nodes: ${selectedDataStringPresentation}`)
   }
 
+  const clearButtonClick = e => {
+    gridApi.deselectAll()
+  }
+
   return (
 
     <div className="ag-theme-material" style={{ height: 400, width: 600 }}>
-      <button onClick={onButtonClick}>Get selected rows</button>
+      <button onClick={showSelectedNodes}>Get selected rows</button>
+      <button onClick={clearButtonClick}>Clear Selection</button>
+
       <AgGridReact onGridReady={onGridReady} rowData={rowData} rowSelection="multiple"
         groupSelectsChildren={true}
         autoGroupColumnDef={{
