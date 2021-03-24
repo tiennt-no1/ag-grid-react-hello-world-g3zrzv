@@ -26,8 +26,17 @@ const App = () => {
     setGridColumnApi(params.columnApi);
   }
 
+  const onButtonClick = e => {
+    const selectedNodes = gridApi.getSelectedNodes()
+    const selectedData = selectedNodes.map( node => node.data )
+    const selectedDataStringPresentation = selectedData.map( node => `${node.make} ${node.model}`).join(', ')
+    alert(`Selected nodes: ${selectedDataStringPresentation}`)
+}
+
   return (
+    
     <div className="ag-theme-material" style={{ height: 400, width: 600 }}>
+      <button onClick={onButtonClick}>Get selected rows</button>
       <AgGridReact onGridReady={onGridReady} rowData={rowData} rowSelection="multiple">
         <AgGridColumn field="make" sortable={true}  checkboxSelection={ true } />
         <AgGridColumn field="model" filter={true} />
