@@ -28,8 +28,8 @@ const App = () => {
 
   return (
     <div className="ag-theme-material" style={{ height: 400, width: 600 }}>
-      <AgGridReact onGridReady={onGridReady} rowData={rowData}>
-        <AgGridColumn field="make" sortable={true} />
+      <AgGridReact onGridReady={onGridReady} rowData={rowData} rowSelection="multiple">
+        <AgGridColumn field="make" sortable={true}  checkboxSelection={ true } />
         <AgGridColumn field="model" filter={true} />
         <AgGridColumn field="price" />
       </AgGridReact>
